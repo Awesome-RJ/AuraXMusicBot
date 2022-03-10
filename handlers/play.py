@@ -68,7 +68,7 @@ async def play(client: Client, message_: Message):
                         offset, length = entity.offset, entity.length
                         break
 
-        if offset == None:
+        if offset is None:
             await res.edit_text("❕ You did not give me anything to play.")
             return
 
@@ -83,10 +83,11 @@ async def play(client: Client, message_: Message):
         await res.edit_text("▶️ Playing...")
         res.delete
         m = await client.send_photo(
-        chat_id=message_.chat.id,
-        photo="https://telegra.ph/file/8262082f0ab2c5d7ca2fb.png",
-        caption=f"Playing Your song Via  [Grooup Music Probot](https://t.me/Cuetiepii_Support).",
-         ) 
+            chat_id=message_.chat.id,
+            photo="https://telegra.ph/file/8262082f0ab2c5d7ca2fb.png",
+            caption="Playing Your song Via  [Grooup Music Probot](https://t.me/Cuetiepii_Support).",
+        )
+
         tgcalls.pytgcalls.join_group_call(message_.chat.id, file_path)
 
 
@@ -159,7 +160,7 @@ async def jiosaavn(client: Client, message_: Message):
         await res.edit(
             "Found Literally Nothing!, You Should Work On Your English."
         )
-        print(str(e))
+        print(e)
         is_playing = False
         return
     file_path= await convert(wget.download(slink))
@@ -185,8 +186,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     heightRatio = maxHeight / image.size[1]
     newWidth = int(widthRatio * image.size[0])
     newHeight = int(heightRatio * image.size[1])
-    newImage = image.resize((newWidth, newHeight))
-    return newImage
+    return image.resize((newWidth, newHeight))
  
  #-----------------------------------YOUTUBE--------------------------------------------------------------
 @Client.on_message(
@@ -212,7 +212,7 @@ async def ytp(client: Client, message_: Message):
             "Found Literally Nothing!, You Should Work On Your English."
         )
         is_playing = False
-        print(str(e))
+        print(e)
         return
     file_path = await convert(download(link))
     if message_.chat.id in tgcalls.pytgcalls.active_calls:
